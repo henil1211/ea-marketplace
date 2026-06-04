@@ -25,26 +25,47 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No file uploaded.' }, { status: 400 });
     }
 
-    // Read file data
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Try local upload first (mostly for local development)
+    try {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
 
-    // Create unique filename
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const fileExt = path.extname(file.name) || '.png';
-    const filename = `${uniqueSuffix}${fileExt}`;
-    
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    
-    // Ensure directory exists
-    await fs.mkdir(uploadDir, { recursive: true });
-    
-    const filePath = path.join(uploadDir, filename);
-    await fs.writeFile(filePath, buffer);
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      const fileExt = path.extname(file.name) || '.png';
+      const filename = `${uniqueSuffix}${fileExt}`;
+      
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+      await fs.mkdir(uploadDir, { recursive: true });
+      
+      const filePath = path.join(uploadDir, filename);
+      await fs.writeFile(filePath, buffer);
 
-    const publicUrl = `/uploads/${filename}`;
-    
-    return NextResponse.json({ url: publicUrl }, { status: 200 });
+      const publicUrl = `/uploads/${filename}`;
+      return NextResponse.json({ url: publicUrl }, { status: 200 });
+    } catch (localError: any) {
+      // Local write failed (e.g., read-only filesystem on Vercel). Fallback to Catbox.moe
+      console.log('Local write failed, falling back to Catbox.moe upload:', localError.message);
+      
+      const externalFormData = new FormData();
+      externalFormData.append('reqtype', 'fileupload');
+      externalFormData.append('fileToUpload', file);
+
+      const catboxRes = await fetch('https://catbox.moe/user/api.php', {
+        method: 'POST',
+        body: externalFormData
+      });
+
+      if (!catboxRes.ok) {
+        throw new Error(`Catbox API returned status ${catboxRes.status}`);
+      }
+
+      const fileUrl = await catboxRes.text();
+      if (!fileUrl || !fileUrl.startsWith('http')) {
+        throw new Error(`Catbox upload failed: ${fileUrl}`);
+      }
+
+      return NextResponse.json({ url: fileUrl.trim() }, { status: 200 });
+    }
   } catch (error: any) {
     console.error('Upload error:', error);
     return NextResponse.json({ error: error.message || 'File upload failed.' }, { status: 500 });
