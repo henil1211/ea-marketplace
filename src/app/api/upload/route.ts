@@ -43,14 +43,43 @@ export async function POST(request: NextRequest) {
       const publicUrl = `/uploads/${filename}`;
       return NextResponse.json({ url: publicUrl }, { status: 200 });
     } catch (localError: any) {
-      // Local write failed (e.g., read-only filesystem on Vercel). Fallback to Catbox.moe
-      console.log('Local write failed, falling back to Catbox.moe upload:', localError.message);
+      console.log('Local write failed (e.g. read-only filesystem on Vercel), falling back to remote upload host:', localError.message);
       
+      const bytes = await file.arrayBuffer();
+      
+      // FALLBACK 1: telegra.ph (highly reliable, CORS enabled, no key required, does not block cloud IPs)
+      try {
+        console.log('Attempting telegra.ph upload...');
+        const telegraFormData = new FormData();
+        const blob = new Blob([bytes], { type: file.type });
+        telegraFormData.append('file', blob, file.name || 'image.png');
+
+        const telegraRes = await fetch('https://telegra.ph/upload', {
+          method: 'POST',
+          body: telegraFormData
+        });
+
+        if (telegraRes.ok) {
+          const result = await telegraRes.json();
+          if (Array.isArray(result) && result[0]?.src) {
+            const fileUrl = `https://telegra.ph${result[0].src}`;
+            console.log('Upload to telegra.ph succeeded:', fileUrl);
+            return NextResponse.json({ url: fileUrl }, { status: 200 });
+          } else {
+            console.warn('Unexpected telegra.ph response format:', result);
+          }
+        } else {
+          console.warn(`Telegra.ph upload failed with status ${telegraRes.status}`);
+        }
+      } catch (telegraError: any) {
+        console.error('Telegra.ph upload error:', telegraError.message);
+      }
+
+      // FALLBACK 2: Catbox.moe
+      console.log('Falling back to Catbox.moe upload...');
       const externalFormData = new FormData();
       externalFormData.append('reqtype', 'fileupload');
 
-      // Convert File to Blob and specify file name explicitly to fix Node.js/Vercel FormData serialization issues
-      const bytes = await file.arrayBuffer();
       const blob = new Blob([bytes], { type: file.type });
       externalFormData.append('fileToUpload', blob, file.name || 'image.png');
 
