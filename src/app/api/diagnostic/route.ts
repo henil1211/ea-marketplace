@@ -63,5 +63,40 @@ export async function GET(request: NextRequest) {
     };
   }
 
-  return NextResponse.json(diagnosticInfo);
+  let telegraTestResult: any = null;
+  try {
+    const testBlob = new Blob(['diagnostic-test-file-content'], { type: 'image/png' });
+    const testFormData = new FormData();
+    testFormData.append('file', testBlob, 'test.png');
+
+    const telegraRes = await fetch('https://telegra.ph/upload', {
+      method: 'POST',
+      body: testFormData
+    });
+
+    if (telegraRes.ok) {
+      const json = await telegraRes.json();
+      telegraTestResult = {
+        status: 'success',
+        response: json,
+        url: Array.isArray(json) && json[0]?.src ? `https://telegra.ph${json[0].src}` : null
+      };
+    } else {
+      telegraTestResult = {
+        status: 'failed',
+        statusCode: telegraRes.status,
+        text: await telegraRes.text()
+      };
+    }
+  } catch (err: any) {
+    telegraTestResult = {
+      status: 'error',
+      message: err.message
+    };
+  }
+
+  return NextResponse.json({
+    ...diagnosticInfo,
+    telegraTestResult
+  });
 }
