@@ -48,10 +48,17 @@ export async function POST(request: NextRequest) {
       
       const externalFormData = new FormData();
       externalFormData.append('reqtype', 'fileupload');
-      externalFormData.append('fileToUpload', file);
+
+      // Convert File to Blob and specify file name explicitly to fix Node.js/Vercel FormData serialization issues
+      const bytes = await file.arrayBuffer();
+      const blob = new Blob([bytes], { type: file.type });
+      externalFormData.append('fileToUpload', blob, file.name || 'image.png');
 
       const catboxRes = await fetch('https://catbox.moe/user/api.php', {
         method: 'POST',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        },
         body: externalFormData
       });
 

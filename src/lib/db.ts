@@ -299,12 +299,9 @@ async function syncLocalCacheToMySQL(p: mysql.Pool) {
 
       const cols = Object.keys(schema);
       const placeholders = cols.map(() => '?').join(', ');
-      const updateClause = cols.map(c => `\`${c}\` = VALUES(\`${c}\`)`).join(', ');
-
       const sql = `
-        INSERT INTO \`${tableName}\` (${cols.map(c => `\`${c}\``).join(', ')})
+        INSERT IGNORE INTO \`${tableName}\` (${cols.map(c => `\`${c}\``).join(', ')})
         VALUES (${placeholders})
-        ON DUPLICATE KEY UPDATE ${updateClause}
       `;
 
       for (const item of items) {
@@ -329,7 +326,7 @@ async function syncLocalCacheToMySQL(p: mysql.Pool) {
         await p.query(sql, values);
       }
     }
-    console.log('Successfully synced local database cache to MySQL.');
+    console.log('Successfully synced local database cache to MySQL (inserting missing seeds only).');
   } catch (err) {
     console.error('Failed to sync local database cache to MySQL:', err);
   }
