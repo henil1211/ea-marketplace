@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import { verifyToken } from '@/lib/auth';
+import { put } from '@vercel/blob';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,9 +44,56 @@ export async function POST(request: NextRequest) {
       const publicUrl = `/uploads/${filename}`;
       return NextResponse.json({ url: publicUrl }, { status: 200 });
     } catch (localError: any) {
-      console.log('Local write failed (e.g. read-only filesystem on Vercel), falling back to remote upload host:', localError.message);
+      console.log('Local write failed (e.g. read-only filesystem on Vercel), falling back to remote upload hosts:', localError.message);
       
       const bytes = await file.arrayBuffer();
+
+      // OPTION 1: Vercel Blob Storage (Best standard option for Vercel deployments, free, zero-config if enabled in dashboard)
+      if (process.env.BLOB_READ_WRITE_TOKEN) {
+        try {
+          console.log('Attempting Vercel Blob upload...');
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const fileExt = path.extname(file.name) || '.png';
+          const filename = `${uniqueSuffix}${fileExt}`;
+          
+          const blob = await put(filename, file, {
+            access: 'public',
+          });
+          console.log('Upload to Vercel Blob succeeded:', blob.url);
+          return NextResponse.json({ url: blob.url }, { status: 200 });
+        } catch (blobError: any) {
+          console.error('Vercel Blob upload failed:', blobError.message);
+        }
+      }
+
+      // OPTION 2: ImgBB (Excellent secondary option, requires free IMGBB_API_KEY in environment)
+      if (process.env.IMGBB_API_KEY) {
+        try {
+          console.log('Attempting ImgBB upload...');
+          const imgbbFormData = new FormData();
+          const blob = new Blob([bytes], { type: file.type });
+          imgbbFormData.append('image', blob, file.name || 'image.png');
+
+          const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, {
+            method: 'POST',
+            body: imgbbFormData
+          });
+
+          if (imgbbRes.ok) {
+            const result = await imgbbRes.json();
+            if (result?.data?.url) {
+              console.log('Upload to ImgBB succeeded:', result.data.url);
+              return NextResponse.json({ url: result.data.url }, { status: 200 });
+            } else {
+              console.warn('Unexpected ImgBB response format:', result);
+            }
+          } else {
+            console.warn(`ImgBB upload failed with status ${imgbbRes.status}`);
+          }
+        } catch (imgbbError: any) {
+          console.error('ImgBB upload error:', imgbbError.message);
+        }
+      }
       
       // FALLBACK 1: telegra.ph (highly reliable, CORS enabled, no key required, does not block cloud IPs)
       try {
