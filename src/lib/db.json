@@ -1,0 +1,379 @@
+{
+  "eas": [
+    {
+      "id": "ea-1902",
+      "name": "Quantum Queen 3.52",
+      "slug": "quantum-queen-mt5-3-52",
+      "platform": "mt5",
+      "category": "scalping",
+      "shortDesc": "Hello, traders! I am Quantum Queen, the crown jewel of the entire Quantum ecosystem and the highest-rated, best-selling Expert Advisor in the history of MQL5.",
+      "fullDesc": "Why Traders Call Me the Best GOLD EA Ever Created\nI’m the next-generation trading engine, crafted with precision, vision, and years of real market experience. Traders all over the world trust me because I’m built differently:\n\n12 advanced built-in strategies, each designed for a different market condition, working together like a perfectly synchronized machine. When one strategy sleeps, another awakens — ensuring I always adapt intelligently.\n4 different sets to choose from, each customised for 4 different brokers (VT Markets/IC Markets RAW - Medium Risk,  VT Markets/IC Markets RAW - Low Risk, Roboforex ECN, Fusion Zero)\nThe elite trend-following grid system that doesn’t chase noise — it captures structured momentum and builds positions with intention, not randomness.\n15+ years of real trading expertise baked into my logic, giving me the instincts of a seasoned trader combined with the discipline of an algorithm.\nA complete, unwavering focus on quality over quantity — my signature strength that allows me to stay patient, avoid unnecessary trades, and strike only when the market truly aligns.\nI don’t trade for the sake of trading. I don’t gamble. I don’t guess.\n\nI wait. I analyze. And when the probabilities line up… I strike with precision, often turning a single move into an entire sequence of calculated, profitable decisions.\n\nThis is why my performance stands out above everything else on the marketplace — consistency, discipline, precision, and real, verifiable long-term results.\n\n\n\nHow I Work — Smart, Precise, and Effortless\nI am designed to integrate seamlessly into any trader’s workflow, whether you’re a beginner or a seasoned professional. My goal is to remove complexity, eliminate guesswork, and trade with discipline that most humans struggle to maintain.\n\nHere’s how I operate:\n\nPlug & Play installation — simply attach me to your XAUUSD chart, choose your preferred risk level, and the recommended set and I take care of the rest. No headaches, no chaos, no endless fine-tuning.\nNo complicated settings — all 12 strategies and internal logic are fully optimized. You don’t need to modify anything. I come “battle-ready,” straight out of the box.\nMulti-timeframe flexibility — I work flawlessly on any timeframe.\n24/5 market intelligence — I constantly monitor gold’s price behavior, volatility spikes, directional bias, and trend structure. When I detect the perfect alignment of probabilities, I execute with razor-sharp accuracy.\nI don’t flood your account with trades. I don’t chase noise. And I definitely don’t rely on luck.\nI trade when the market conditions match my strategic criteria, not when someone feels impatient.\nThat’s why I don’t trade every day — and that’s exactly why my long-term results stand above the rest.\n\nPatience is my edge. Quality is my signature. Consistency is my legacy.\nMinimum requirements and recommendations\nRecommended brokers: VT MARKETS / FP TRADING or a broker with ECN/RAW/LOW spread type\n2 decimal price quota for GOLD. Quantum Queen is not compatible with brokers which offer a 3 decimal price quota for GOLD\nMinimum initial deposit: $500 in accounts with 1:500 leverage.\nRecommended initial deposit: $1000 in accounts with 1:500 leverage.\nLeverage at least 1:100, 1:500 recommended\nAccount type: Hedging.\nUse a VPS for the EA to work 24/7 (Mandatory).\n\nDesigned for Traders Who Want More\nMy code is fast.\nMy logic is battle-tested.\nMy performance is proven in real live markets — not just backtests.\n\nWhether you’re a beginner or a seasoned trader, I bring you the most powerful, refined trading experience that is hard to match.\n\nJust set me up, let me do my job, and enjoy the results.\nI am Quantum Queen — and your gold trading will never be the same again. \n\nDISCLAIMER:\nTrading foreign exchange and CFDs carries a high level of risk. Past performance is not indicative of future results. Please trade responsibly and test on a demo account first.\nQuantum Queen focuses on high quality setups, rather than blindly trading. It is not a high frequency trading system - it's the ultimate system that patiently waits and executes only when it sees the perfect market conditions. This means that there will be entire days with no trades at all and other days with higher trading activity, entirely depending on the market conditions - this behavior can also be seen in my live signal, in backtesting and in the reviews/feedback left by long-term users.\nThe main priority Of Quantum Queen is capital preservation first - it does not execute risky trades, it only executes in the perfect moments.\nTrading with Quantum Queen requires you to be patient and don't expect high trading activity and to get rich fast - this is a professional tool made for people who know the value of money.",
+      "mql5Price": 1999,
+      "ourPrice": 99,
+      "winRate": 77.82,
+      "maxDrawdown": 8.29,
+      "profitFactor": 4.31,
+      "minDeposit": null,
+      "rating": null,
+      "reviewsCount": null,
+      "viewsCount": null,
+      "downloadsCount": null,
+      "wishlistCount": null,
+      "recentlyUpdated": null,
+      "recentlyAdded": null,
+      "propFirmCompatible": false,
+      "isFeatured": null,
+      "thumbnail": "/uploads/1780555691682-175942782.jpg",
+      "tags": [
+        "quantum",
+        "queen",
+        "xauusd",
+        "mt5"
+      ],
+      "createdAt": "2026-06-04T11:26:01.010Z",
+      "updatedAt": "2026-06-04T11:26:01.060Z"
+    }
+  ],
+  "orders": [],
+  "users": [
+    {
+      "id": "usr-admin",
+      "email": "admin@eavault.com",
+      "passwordHash": "$2b$10$MiQNGFN5C54ReS63di1y4OWLsDJkQkLkn9gu7M2NZRHNp2LbmfoFW",
+      "name": "Admin User",
+      "role": "admin",
+      "createdAt": "2026-06-04T11:21:47.026Z",
+      "updatedAt": "2026-06-04T11:21:47.026Z"
+    }
+  ],
+  "customRequests": [],
+  "settings": [
+    {
+      "id": "site-settings",
+      "phone": null,
+      "activeWhatsapp": null,
+      "hidePublicPrices": false,
+      "createdAt": "2026-06-04T07:14:08.838Z",
+      "updatedAt": "2026-06-04T07:14:08.885Z"
+    }
+  ],
+  "reviews": [],
+  "wishlists": [],
+  "notifications": [
+    {
+      "id": "not-394691",
+      "userId": null,
+      "title": "Wishlist Updated",
+      "message": "You added Quantum Queen MT5 3.52 to your wishlist.",
+      "type": "wishlist_sale",
+      "read": false,
+      "createdAt": "2026-06-04T07:20:46.168Z",
+      "updatedAt": "2026-06-04T07:20:46.193Z"
+    },
+    {
+      "id": "not-701850",
+      "userId": null,
+      "title": "Wishlist Updated",
+      "message": "You added Quantum Queen MT5 3.52 to your wishlist.",
+      "type": "wishlist_sale",
+      "read": false,
+      "createdAt": "2026-06-04T07:08:15.439Z",
+      "updatedAt": "2026-06-04T07:08:15.469Z"
+    }
+  ],
+  "subscribers": [],
+  "downloadLogs": [],
+  "activityLogs": [
+    {
+      "id": "act-148407",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:07:30.659Z",
+      "updatedAt": "2026-06-04T11:07:31.788Z"
+    },
+    {
+      "id": "act-154737",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:20:36.980Z",
+      "updatedAt": "2026-06-04T11:20:37.046Z"
+    },
+    {
+      "id": "act-188406",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Deleted document from wishlists",
+      "metadata": {
+        "id": "wis-555503"
+      },
+      "createdAt": "2026-06-04T07:20:48.287Z",
+      "updatedAt": "2026-06-04T07:20:48.341Z"
+    },
+    {
+      "id": "act-211006",
+      "type": "auth",
+      "userId": "usr-admin",
+      "action": "Failed login (incorrect password)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:21:57.682Z",
+      "updatedAt": "2026-06-04T11:21:58.752Z"
+    },
+    {
+      "id": "act-228004",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Updated document in eas",
+      "metadata": {
+        "id": "ea-1902",
+        "key": "Quantum Queen MT5 3.52"
+      },
+      "createdAt": "2026-06-04T07:14:08.887Z",
+      "updatedAt": "2026-06-04T07:14:09.016Z"
+    },
+    {
+      "id": "act-259424",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:20:38.127Z",
+      "updatedAt": "2026-06-04T11:20:38.187Z"
+    },
+    {
+      "id": "act-281519",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:20:38.268Z",
+      "updatedAt": "2026-06-04T11:20:38.312Z"
+    },
+    {
+      "id": "act-314318",
+      "type": "auth",
+      "userId": "usr-admin",
+      "action": "Updated document in visitorAnalytics",
+      "metadata": {
+        "id": "vis-907537"
+      },
+      "createdAt": "2026-06-04T06:27:04.243Z",
+      "updatedAt": "2026-06-04T06:27:04.741Z"
+    },
+    {
+      "id": "act-329658",
+      "type": "auth",
+      "userId": "usr-admin",
+      "action": "Successful login",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "role": "admin"
+      },
+      "createdAt": "2026-06-04T11:23:14.969Z",
+      "updatedAt": "2026-06-04T11:23:16.427Z"
+    },
+    {
+      "id": "act-347536",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:20:37.533Z",
+      "updatedAt": "2026-06-04T11:20:37.565Z"
+    },
+    {
+      "id": "act-373572",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Deleted document from wishlists",
+      "metadata": {
+        "id": "wis-769564"
+      },
+      "createdAt": "2026-06-04T07:08:16.486Z",
+      "updatedAt": "2026-06-04T07:08:16.548Z"
+    },
+    {
+      "id": "act-509293",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Updated document in eas",
+      "metadata": {
+        "id": "ea-1902",
+        "key": "active"
+      },
+      "createdAt": "2026-06-04T11:25:06.268Z",
+      "updatedAt": "2026-06-04T11:25:06.337Z"
+    },
+    {
+      "id": "act-616373",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Created new document in eas",
+      "metadata": {
+        "id": "eas-244592",
+        "name": "Quantum Queen MT5 3.52"
+      },
+      "createdAt": "2026-06-04T06:48:45.884Z",
+      "updatedAt": "2026-06-04T06:48:45.920Z"
+    },
+    {
+      "id": "act-687866",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Updated document in eas",
+      "metadata": {
+        "id": "ea-1902",
+        "key": true
+      },
+      "createdAt": "2026-06-04T11:25:08.147Z",
+      "updatedAt": "2026-06-04T11:25:08.201Z"
+    },
+    {
+      "id": "act-781140",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:11:20.351Z",
+      "updatedAt": "2026-06-04T11:11:20.606Z"
+    },
+    {
+      "id": "act-797080",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:11:21.184Z",
+      "updatedAt": "2026-06-04T11:11:21.212Z"
+    },
+    {
+      "id": "act-825671",
+      "type": "auth",
+      "userId": "usr-admin",
+      "action": "Failed login (incorrect password)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:21:52.477Z",
+      "updatedAt": "2026-06-04T11:21:52.910Z"
+    },
+    {
+      "id": "act-865448",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Updated document in eas",
+      "metadata": {
+        "id": "ea-1902",
+        "key": "Quantum Queen MT5 3.52"
+      },
+      "createdAt": "2026-06-04T07:06:13.975Z",
+      "updatedAt": "2026-06-04T07:06:14.037Z"
+    },
+    {
+      "id": "act-995645",
+      "type": "auth",
+      "userId": "anonymous",
+      "action": "Failed login (user not found)",
+      "metadata": {
+        "email": "admin@eavault.com",
+        "ip": "::1"
+      },
+      "createdAt": "2026-06-04T11:20:37.984Z",
+      "updatedAt": "2026-06-04T11:20:38.022Z"
+    },
+    {
+      "id": "act-844973",
+      "createdAt": "2026-06-04T11:26:01.101Z",
+      "updatedAt": "2026-06-04T11:26:01.225Z",
+      "type": "admin",
+      "userId": "usr-admin",
+      "action": "Updated document in eas",
+      "metadata": {
+        "id": "ea-1902",
+        "key": "Quantum Queen 3.52"
+      }
+    }
+  ],
+  "leads": [
+    {
+      "id": "lea-126314",
+      "eaId": "ea-1902",
+      "email": null,
+      "name": null,
+      "message": null,
+      "createdAt": "2026-06-04T08:17:22.877Z",
+      "updatedAt": "2026-06-04T08:17:22.877Z"
+    },
+    {
+      "id": "lea-307609",
+      "eaId": "ea-1902",
+      "email": null,
+      "name": null,
+      "message": null,
+      "createdAt": "2026-06-04T07:10:50.291Z",
+      "updatedAt": "2026-06-04T07:10:50.291Z"
+    }
+  ],
+  "visitorAnalytics": [
+    {
+      "id": "vis-855025",
+      "visitorId": "v-0jckugug52ante0hou5qbvp",
+      "deviceType": "Desktop",
+      "location": null,
+      "trafficSource": "Direct",
+      "pageViews": [
+        {
+          "path": "/",
+          "title": "EA VAULT — Premium Expert Advisors Marketplace",
+          "timestamp": "2026-06-04T11:07:32.999Z"
+        },
+        {
+          "path": "/marketplace/quantum-queen-mt5-3-52",
+          "title": "Quantum Queen MT5 3.52 for MT5 — Backtested Forex EA | EA Vault | EA VAULT",
+          "timestamp": "2026-06-04T11:07:58.056Z"
+        }
+      ],
+      "heartbeatDuration": null,
+      "createdAt": "2026-06-04T11:07:33.000Z",
+      "updatedAt": "2026-06-04T11:11:09.507Z"
+    }
+  ],
+  "whatsappClicks": [
+    {
+      "id": "wha-304895",
+      "eaId": "general",
+      "visitorId": "v-m9p6ubvblmdew8lw5a5h0t",
+      "phone": null,
+      "createdAt": "2026-06-04T07:53:15.561Z",
+      "updatedAt": "2026-06-04T07:53:15.561Z"
+    }
+  ]
+}

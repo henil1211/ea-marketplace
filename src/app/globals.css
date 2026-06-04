@@ -1,26 +1,290 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================
+   EA VAULT — Design Tokens (Tailwind v4)
+   ============================================ */
+
+@theme {
+  /* ── Brand Colors ── */
+  --color-vault-bg: #0D0F14;
+  --color-vault-surface: #1A1D26;
+  --color-vault-surface-high: #272A33;
+  --color-vault-surface-low: #14161D;
+  --color-vault-border: #2A2D36;
+  --color-vault-border-hover: #3A3D46;
+
+  --color-vault-gold: #F0B90B;
+  --color-vault-gold-dim: #C4980A;
+  --color-vault-gold-light: #FFD87F;
+
+  --color-vault-profit: #00C087;
+  --color-vault-profit-dim: #00A070;
+  --color-vault-loss: #FF4D4D;
+  --color-vault-loss-dim: #CC3D3D;
+
+  --color-vault-text: #FFFFFF;
+  --color-vault-text-secondary: #8A8F9C;
+  --color-vault-text-muted: #5A5F6C;
+
+  /* ── Font Families ── */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* ── Spacing Scale ── */
+  --spacing-container: 1440px;
+  --spacing-gutter: 24px;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================
+   Base Styles
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--color-vault-bg);
+  color: var(--color-vault-text);
+  min-height: 100vh;
+}
+
+/* Tabular numbers for data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   Custom Utility Classes
+   ============================================ */
+
+/* Glassmorphism Surface */
+.glass {
+  background: rgba(26, 29, 38, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(26, 29, 38, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Gold glow effect */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(240, 185, 11, 0.15),
+              0 0 40px rgba(240, 185, 11, 0.05);
+}
+
+.glow-gold-sm {
+  box-shadow: 0 0 10px rgba(240, 185, 11, 0.1);
+}
+
+/* Profit/Loss glow */
+.glow-profit {
+  box-shadow: 0 0 12px rgba(0, 192, 135, 0.2);
+}
+
+.glow-loss {
+  box-shadow: 0 0 12px rgba(255, 77, 77, 0.2);
+}
+
+/* Gradient border card (top-down light simulation) */
+.card-gradient-border {
+  position: relative;
+  background: var(--color-vault-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Hover glow card */
+.card-hover-glow {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover-glow:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-vault-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-vault-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-vault-border-hover);
+}
+
+/* ============================================
+   Animation Keyframes
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 185, 11, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(240, 185, 11, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
+
+/* Hide scrollbar for horizontal scroll areas */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Staggered fade-in for children */
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ============================================
+   Premium UI Styling & Shimmer Loaders
+   ============================================ */
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(26, 29, 38, 0.5);
+}
+
+.shimmer::after {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(255, 255, 255, 0.08) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.8s infinite;
+  content: '';
+}
+
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 40s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Premium text & border accents */
+.text-glow-gold {
+  text-shadow: 0 0 12px rgba(240, 185, 11, 0.25);
+}
+
+.text-glow-profit {
+  text-shadow: 0 0 12px rgba(0, 192, 135, 0.25);
+}
+
+.glow-subtle {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.glow-card {
+  position: relative;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 40%, transparent 60%, rgba(0, 192, 135, 0.05));
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
 }
