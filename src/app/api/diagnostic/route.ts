@@ -65,7 +65,9 @@ export async function GET(request: NextRequest) {
 
   let telegraTestResult: any = null;
   try {
-    const testBlob = new Blob(['diagnostic-test-file-content'], { type: 'image/png' });
+    const base64Png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+    const binaryPng = Buffer.from(base64Png, 'base64');
+    const testBlob = new Blob([binaryPng], { type: 'image/png' });
     const testFormData = new FormData();
     testFormData.append('file', testBlob, 'test.png');
 
