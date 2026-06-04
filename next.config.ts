@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname, '../../'),
   turbopack: {
     root: path.join(__dirname, '../../'),
+  },
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+    staticGenerationMaxConcurrency: 1,
   }
 };
 
