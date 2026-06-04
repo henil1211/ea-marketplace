@@ -35,13 +35,23 @@ export async function GET(request: NextRequest) {
   };
 
   try {
-    const pool = await getPool();
-    if (pool) {
-      const [rows]: any = await pool.query('SELECT 1 as test');
+    if (mysqlConfig) {
+      const mysql = require('mysql2/promise');
+      const connection = await mysql.createConnection({
+        host: mysqlConfig.host,
+        user: mysqlConfig.user,
+        password: mysqlConfig.password,
+        database: mysqlConfig.database,
+        port: mysqlConfig.port,
+        ssl: process.env.MYSQL_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
+        connectTimeout: 5000 // 5 seconds timeout
+      });
+      const [rows]: any = await connection.query('SELECT 1 as test');
       diagnosticInfo.dbConnectionStatus = 'success';
       diagnosticInfo.testQueryResult = rows;
+      await connection.end();
     } else {
-      diagnosticInfo.dbConnectionStatus = 'failed (getPool returned null)';
+      diagnosticInfo.dbConnectionStatus = 'failed (no mysqlConfig)';
     }
   } catch (err: any) {
     diagnosticInfo.dbConnectionStatus = 'failed';
