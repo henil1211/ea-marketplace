@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
   );
 }
 
-export async function POST_disabled(request: NextRequest) {
+async function POST_disabled(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
 
   try {
