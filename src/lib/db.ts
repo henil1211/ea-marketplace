@@ -48,8 +48,21 @@ const TABLE_SCHEMAS: { [key: string]: { [key: string]: string } } = {
     recentlyAdded: 'TINYINT(1) DEFAULT 0',
     propFirmCompatible: 'TINYINT(1) DEFAULT 0',
     isFeatured: 'TINYINT(1) DEFAULT 0',
+    featured: 'TINYINT(1) DEFAULT 0',
+    trending: 'TINYINT(1) DEFAULT 0',
+    status: 'VARCHAR(50)',
     thumbnail: 'VARCHAR(255)',
+    backtestImage: 'VARCHAR(255)',
+    backtestImages: 'TEXT',
+    eaFile: 'VARCHAR(255)',
     tags: 'TEXT',
+    faqs: 'TEXT',
+    riskLevel: 'VARCHAR(50)',
+    brokerCompatibility: 'VARCHAR(255)',
+    lastUpdated: 'VARCHAR(100)',
+    downloads: 'INT',
+    backtestData: 'LONGTEXT',
+    monthlyReturns: 'LONGTEXT',
     createdAt: 'VARCHAR(100)',
     updatedAt: 'VARCHAR(100)'
   },
@@ -208,6 +221,8 @@ export async function getPool(): Promise<mysql.Pool | null> {
     await pool.query('SELECT 1');
     // Ensure all tables exist
     await ensureTablesExist(pool);
+    // Sync local DB cache to MySQL on startup
+    await syncLocalCacheToMySQL(pool);
     return pool;
   } catch (err) {
     console.error('MySQL connection failed, falling back to local file:', err);
@@ -242,6 +257,72 @@ async function ensureTablesExist(p: mysql.Pool) {
         ${columnDefs}
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     `);
+
+    // Ensure all columns exist (adds new columns if schema evolved)
+    try {
+      const [existingCols]: any = await p.query(`SHOW COLUMNS FROM \`${tableName}\``);
+      const existingColNames = new Set(existingCols.map((c: any) => c.Field));
+      for (const [colName, definition] of Object.entries(schema)) {
+        if (!existingColNames.has(colName)) {
+          console.log(`Adding column ${colName} to table ${tableName}...`);
+          await p.query(`ALTER TABLE \`${tableName}\` ADD COLUMN \`${colName}\` ${definition}`);
+        }
+      }
+    } catch (err) {
+      console.error(`Failed to update columns for table ${tableName}:`, err);
+    }
+  }
+}
+
+async function syncLocalCacheToMySQL(p: mysql.Pool) {
+  try {
+    const localContent = await fs.readFile(DB_PATH, 'utf-8').catch(() => '{}');
+    const localDB = JSON.parse(localContent);
+    if (!localDB || Object.keys(localDB).length === 0) return;
+
+    for (const col of COLLECTIONS) {
+      const tableName = col.replace(/[^a-zA-Z0-9_]/g, '');
+      const schema = TABLE_SCHEMAS[col];
+      if (!schema) continue;
+
+      const items = localDB[col] || [];
+      if (items.length === 0) continue;
+
+      const cols = Object.keys(schema);
+      const placeholders = cols.map(() => '?').join(', ');
+      const updateClause = cols.map(c => `\`${c}\` = VALUES(\`${c}\`)`).join(', ');
+
+      const sql = `
+        INSERT INTO \`${tableName}\` (${cols.map(c => `\`${c}\``).join(', ')})
+        VALUES (${placeholders})
+        ON DUPLICATE KEY UPDATE ${updateClause}
+      `;
+
+      for (const item of items) {
+        if (!item.id) continue;
+
+        const values = cols.map((colName) => {
+          let val = item[colName];
+          if (val === undefined || val === null) {
+            return null;
+          }
+
+          const type = schema[colName].toLowerCase();
+          if (type.includes('tinyint(1)')) {
+            return val ? 1 : 0;
+          }
+          if (Array.isArray(val) || (typeof val === 'object' && val !== null)) {
+            return JSON.stringify(val);
+          }
+          return val;
+        });
+
+        await p.query(sql, values);
+      }
+    }
+    console.log('Successfully synced local database cache to MySQL.');
+  } catch (err) {
+    console.error('Failed to sync local database cache to MySQL:', err);
   }
 }
 

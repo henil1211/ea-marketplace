@@ -10,6 +10,7 @@ interface FeaturedEA {
   slug: string;
   platform: string;
   winRate: number;
+  maxDrawdown?: number;
   mql5Price: number;
   ourPrice: number;
   category: string;
@@ -22,27 +23,27 @@ interface FeaturedEA {
 const MOCK_EAS: FeaturedEA[] = [
   {
     id: '1', name: 'Gold Scalper Pro', slug: 'gold-scalper-pro', platform: 'mt5',
-    winRate: 82.3, mql5Price: 499, ourPrice: 99, category: 'scalper',
+    winRate: 82.3, maxDrawdown: 6.2, mql5Price: 499, ourPrice: 99, category: 'scalper', profitFactor: 2.1
   },
   {
     id: '2', name: 'TrendMaster AI', slug: 'trendmaster-ai', platform: 'both',
-    winRate: 76.8, mql5Price: 349, ourPrice: 69, category: 'trend',
+    winRate: 76.8, maxDrawdown: 8.5, mql5Price: 349, ourPrice: 69, category: 'trend', profitFactor: 1.95
   },
   {
     id: '3', name: 'Grid Recovery FX', slug: 'grid-recovery-fx', platform: 'mt4',
-    winRate: 71.5, mql5Price: 599, ourPrice: 119, category: 'grid',
+    winRate: 71.5, maxDrawdown: 12.4, mql5Price: 599, ourPrice: 119, category: 'grid', profitFactor: 1.8
   },
   {
     id: '4', name: 'Breakout Ninja', slug: 'breakout-ninja', platform: 'mt5',
-    winRate: 79.1, mql5Price: 299, ourPrice: 59, category: 'breakout',
+    winRate: 79.1, maxDrawdown: 7.8, mql5Price: 299, ourPrice: 59, category: 'breakout', profitFactor: 2.3
   },
   {
     id: '5', name: 'Hedge Shield Plus', slug: 'hedge-shield-plus', platform: 'both',
-    winRate: 85.0, mql5Price: 699, ourPrice: 139, category: 'hedging',
+    winRate: 85.0, maxDrawdown: 5.5, mql5Price: 699, ourPrice: 139, category: 'hedging', profitFactor: 2.5
   },
   {
     id: '6', name: 'Swing Titan V3', slug: 'swing-titan-v3', platform: 'mt4',
-    winRate: 73.2, mql5Price: 449, ourPrice: 89, category: 'swing',
+    winRate: 73.2, maxDrawdown: 9.1, mql5Price: 449, ourPrice: 89, category: 'swing', profitFactor: 1.88
   },
 ];
 
@@ -56,7 +57,7 @@ function PlatformBadge({ platform }: { platform: string }) {
 }
 
 export default function FeaturedEAs() {
-  const [eas, setEas] = useState<FeaturedEA[]>(MOCK_EAS);
+  const [eas, setEas] = useState<FeaturedEA[]>([]);
   const [hidePublicPrices, setHidePublicPrices] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -70,9 +71,7 @@ export default function FeaturedEAs() {
         if (easRes.ok) {
           const data = await easRes.json();
           const items = Array.isArray(data) ? data : (data?.data || []);
-          if (items.length > 0) {
-            setEas(items);
-          }
+          setEas(items);
         }
         if (settingsRes.ok) {
           const settings = await settingsRes.json();
@@ -82,7 +81,7 @@ export default function FeaturedEAs() {
           }
         }
       } catch {
-        // Use mock data
+        // Fallback handled
       }
     }
     fetchData();
@@ -223,12 +222,12 @@ export default function FeaturedEAs() {
                     <div className="h-5 w-[1px] bg-vault-border/50" />
                     <div className="text-center flex-1">
                       <span className="block text-[9px] text-vault-text-muted font-normal mb-0.5">Drawdown</span>
-                      <span className="font-heading text-xs font-bold text-vault-text">8.5%</span>
+                      <span className="font-heading text-xs font-bold text-vault-text">{ea.maxDrawdown !== undefined ? ea.maxDrawdown : 8.5}%</span>
                     </div>
                     <div className="h-5 w-[1px] bg-vault-border/50" />
                     <div className="text-center flex-1">
                       <span className="block text-[9px] text-vault-text-muted font-normal mb-0.5">Profit Factor</span>
-                      <span className="font-heading text-xs font-bold text-vault-text">2.1</span>
+                      <span className="font-heading text-xs font-bold text-vault-text">{ea.profitFactor !== undefined ? ea.profitFactor : 2.1}</span>
                     </div>
                   </div>
                 </div>

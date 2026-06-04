@@ -22,7 +22,7 @@ export default function EAForm({ eaId }: EAFormProps) {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [platform, setPlatform] = useState('both');
-  const [category, setCategory] = useState('scalping');
+  const [category, setCategory] = useState('scalper');
   const [tags, setTags] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [fullDesc, setFullDesc] = useState('');
@@ -452,12 +452,15 @@ export default function EAForm({ eaId }: EAFormProps) {
               onChange={(e) => setCategory(e.target.value)}
               className="w-full mt-2 rounded-xl border border-vault-border bg-vault-bg px-4 py-3 font-body text-xs text-vault-text focus:border-vault-gold outline-none cursor-pointer capitalize"
             >
-              <option value="scalping">Scalping</option>
-              <option value="swing trading">Swing Trading</option>
+              <option value="scalper">Scalping</option>
+              <option value="trend">Trend Following</option>
               <option value="grid">Grid Strategy</option>
+              <option value="martingale">Martingale</option>
               <option value="hedging">Hedging</option>
-              <option value="trend following">Trend Following</option>
-              <option value="news trading">News Trading</option>
+              <option value="news">News Trading</option>
+              <option value="breakout">Breakout</option>
+              <option value="swing">Swing Trading</option>
+              <option value="other">Other</option>
             </select>
           </div>
         </div>
