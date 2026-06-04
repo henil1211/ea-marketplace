@@ -52,8 +52,17 @@
   "settings": [
     {
       "id": "site-settings",
+      "siteName": "EA VAULT",
+      "contactEmail": "support@eavault.com",
+      "whatsapp": "447123456789",
       "phone": null,
       "activeWhatsapp": null,
+      "twitter": "",
+      "telegram": "",
+      "instagram": "",
+      "announcementText": "🔥 Get top-rated MQL5 EAs at up to 80% OFF — Limited time!",
+      "announcementActive": true,
+      "maintenanceActive": false,
       "hidePublicPrices": false,
       "createdAt": "2026-06-04T07:14:08.838Z",
       "updatedAt": "2026-06-04T07:14:08.885Z"

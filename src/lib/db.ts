@@ -99,8 +99,17 @@ const TABLE_SCHEMAS: { [key: string]: { [key: string]: string } } = {
   },
   settings: {
     id: 'VARCHAR(100) NOT NULL PRIMARY KEY',
+    siteName: 'VARCHAR(255)',
+    contactEmail: 'VARCHAR(255)',
+    whatsapp: 'VARCHAR(100)',
     phone: 'VARCHAR(50)',
     activeWhatsapp: 'VARCHAR(50)',
+    twitter: 'VARCHAR(255)',
+    telegram: 'VARCHAR(255)',
+    instagram: 'VARCHAR(255)',
+    announcementText: 'TEXT',
+    announcementActive: 'TINYINT(1) DEFAULT 1',
+    maintenanceActive: 'TINYINT(1) DEFAULT 0',
     hidePublicPrices: 'TINYINT(1) DEFAULT 0',
     createdAt: 'VARCHAR(100)',
     updatedAt: 'VARCHAR(100)'
